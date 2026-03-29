@@ -86,21 +86,27 @@ function VoiceCard({
         {voice.name.split(" - ")[0]}
       </p>
 
-      {/* Meta tags — all labels */}
-      {voice.labels && (
-        <div className="flex flex-wrap gap-1.5 mt-1.5">
-          {Object.entries(voice.labels).map(([key, val]) =>
-            val && key !== "language" && key !== "age" ? (
+      {/* Meta tags — gender, accent, then up to 2 extras */}
+      {voice.labels && (() => {
+        const priority = ["gender", "accent"]
+        const skip = new Set(["language", "age"])
+        const ordered = [
+          ...priority.flatMap((k) => (voice.labels![k] ? [[k, voice.labels![k]]] : [])),
+          ...Object.entries(voice.labels).filter(([k]) => !priority.includes(k) && !skip.has(k)),
+        ].slice(0, 4) as [string, string][]
+        return ordered.length > 0 ? (
+          <div className="flex flex-wrap gap-1.5 mt-1.5">
+            {ordered.map(([key, val]) => (
               <span
-                key={val}
+                key={key}
                 className="text-xs px-2 py-0.5 rounded-full bg-background border border-border text-muted-foreground capitalize"
               >
                 {val.replace(/_/g, " ")}
               </span>
-            ) : null
-          )}
-        </div>
-      )}
+            ))}
+          </div>
+        ) : null
+      })()}
 
       {/* Preview button */}
       {voice.previewUrl && (

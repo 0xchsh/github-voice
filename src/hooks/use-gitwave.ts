@@ -11,7 +11,7 @@ export type Status =
   | "ready"
   | "error"
 
-export function useGhVoice() {
+export function useGitwave() {
   const [status, setStatus] = useState<Status>("idle")
   const [repoData, setRepoData] = useState<RepoData | null>(null)
   const [script, setScript] = useState<string | null>(null)

@@ -23,12 +23,10 @@ export async function GET() {
     preview_url?: string
     labels?: Record<string, string>
     sharing?: { image_url?: string }
-    fine_tuning?: { original_model_id?: string }
   }>).map((v) => ({
     id: v.voice_id,
     name: v.name,
-    accent: v.labels?.accent ?? null,
-    gender: v.labels?.gender ?? null,
+    labels: v.labels ?? null,
     previewUrl: v.preview_url ?? null,
     imageUrl: v.sharing?.image_url ?? null,
   }))

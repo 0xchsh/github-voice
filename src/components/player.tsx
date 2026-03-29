@@ -35,7 +35,7 @@ export function Player() {
   return (
     <div suppressHydrationWarning className="h-24 shrink-0 border-t border-border bg-card flex items-center px-4 gap-4">
       {/* Left: Now playing info */}
-      <div className="w-52 shrink-0 flex items-center gap-3 min-w-0">
+      <div className="flex-1 min-w-0 flex items-center gap-3">
         {episode ? (
           <>
             <div
@@ -122,7 +122,7 @@ export function Player() {
       </div>
 
       {/* Right: Voice picker + download */}
-      <div className="w-52 shrink-0 flex items-center justify-end gap-2">
+      <div className="shrink-0 flex items-center justify-end gap-2">
         {/* Speed control */}
         <div className="flex items-center gap-0.5">
           {speeds.map((rate) => (

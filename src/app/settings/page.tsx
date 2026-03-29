@@ -84,19 +84,21 @@ function VoiceCard({
       {/* Name */}
       <p className="text-sm font-semibold text-foreground leading-tight mb-2">{voice.name}</p>
 
-      {/* Meta */}
-      <div className="flex flex-wrap gap-1.5 mt-1.5">
-        {voice.gender && (
-          <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground capitalize">
-            {voice.gender}
-          </span>
-        )}
-        {voice.accent && (
-          <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground capitalize">
-            {voice.accent}
-          </span>
-        )}
-      </div>
+      {/* Meta tags — all labels */}
+      {voice.labels && (
+        <div className="flex flex-wrap gap-1.5 mt-1.5">
+          {Object.entries(voice.labels).map(([, val]) =>
+            val ? (
+              <span
+                key={val}
+                className="text-xs px-2 py-0.5 rounded-full bg-background border border-border text-muted-foreground capitalize"
+              >
+                {val}
+              </span>
+            ) : null
+          )}
+        </div>
+      )}
 
       {/* Preview button */}
       {voice.previewUrl && (

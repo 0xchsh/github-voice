@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { MicrophoneStage, House, MagnifyingGlass, Books, Plus, GearSix } from "@phosphor-icons/react"
+import Image from "next/image"
+import { House, MagnifyingGlass, Books, Plus, GearSix } from "@phosphor-icons/react"
 import { cn } from "@/lib/utils"
 
 type LibraryItem = {
@@ -12,7 +13,7 @@ type LibraryItem = {
   stars: number
 }
 
-const LIBRARY_KEY = "ghvoice_library"
+const LIBRARY_KEY = "gitwave_library"
 
 export function getLibrary(): LibraryItem[] {
   if (typeof window === "undefined") return []
@@ -24,7 +25,7 @@ export function getLibrary(): LibraryItem[] {
 }
 
 function dispatchLibraryChange() {
-  window.dispatchEvent(new Event("ghvoice_library_change"))
+  window.dispatchEvent(new Event("gitwave_library_change"))
 }
 
 export function saveToLibrary(item: LibraryItem) {
@@ -65,10 +66,10 @@ export function Sidebar() {
   // Listen for same-tab and cross-tab library changes
   useEffect(() => {
     function refresh() { setLibrary(getLibrary()) }
-    window.addEventListener("ghvoice_library_change", refresh)
+    window.addEventListener("gitwave_library_change", refresh)
     window.addEventListener("storage", refresh)
     return () => {
-      window.removeEventListener("ghvoice_library_change", refresh)
+      window.removeEventListener("gitwave_library_change", refresh)
       window.removeEventListener("storage", refresh)
     }
   }, [])
@@ -83,8 +84,8 @@ export function Sidebar() {
     <aside className="w-60 shrink-0 flex flex-col bg-card border-r border-border h-full overflow-y-auto">
       {/* Logo */}
       <div className="px-4 py-5 flex items-center gap-2 shrink-0">
-        <MicrophoneStage weight="fill" className="size-5 text-foreground" />
-        <span className="font-semibold text-base text-foreground tracking-tight">Github Voice</span>
+        <Image src="/gitwave.svg" alt="Gitwave" width={24} height={24} priority />
+        <span className="font-semibold text-base text-foreground tracking-tight">Gitwave</span>
       </div>
 
       {/* Nav */}

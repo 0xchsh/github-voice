@@ -11,7 +11,7 @@ import {
 } from "react"
 import type { RepoData, Release } from "@/lib/github"
 
-export type Voice = { id: string; name: string; accent: string | null; gender: string | null; previewUrl: string | null; imageUrl: string | null }
+export type Voice = { id: string; name: string; labels: Record<string, string> | null; previewUrl: string | null; imageUrl: string | null }
 
 export type EpisodeStatus =
   | "idle"
@@ -62,7 +62,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
   const setSelectedVoiceId = useCallback((id: string) => {
     setSelectedVoiceIdState(id)
-    localStorage.setItem("ghvoice_voice_id", id)
+    localStorage.setItem("gitwave_voice_id", id)
   }, [])
 
   const setPlaybackRate = useCallback((rate: number) => {
@@ -77,7 +77,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       .then((data) => {
         if (data.voices?.length) {
           setVoices(data.voices)
-          const saved = localStorage.getItem("ghvoice_voice_id")
+          const saved = localStorage.getItem("gitwave_voice_id")
           const match = saved && data.voices.find((v: Voice) => v.id === saved)
           setSelectedVoiceIdState(match ? saved : data.voices[0].id)
         }

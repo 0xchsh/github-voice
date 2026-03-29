@@ -95,7 +95,7 @@ function VoiceCard({
                 key={val}
                 className="text-xs px-2 py-0.5 rounded-full bg-background border border-border text-muted-foreground capitalize"
               >
-                {val}
+                {val.replace(/_/g, " ")}
               </span>
             ) : null
           )}

@@ -3,10 +3,11 @@ import "./globals.css"
 import { PlayerProvider } from "@/context/player-context"
 import { Sidebar } from "@/components/sidebar"
 import { Player } from "@/components/player"
+import { MobileNav } from "@/components/mobile-nav"
 import { Agentation } from "agentation"
 
 export const metadata: Metadata = {
-  title: "GHVoice — GitHub repos as podcasts",
+  title: "Gitwave — GitHub repos as podcasts",
   description: "Turn any public GitHub repo's changelog into a podcast episode using AI.",
 }
 
@@ -32,6 +33,7 @@ export default function RootLayout({
 
               {/* Persistent bottom player */}
               <Player />
+              <MobileNav />
             </div>
           </div>
         </PlayerProvider>

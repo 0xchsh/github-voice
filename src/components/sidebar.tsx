@@ -81,7 +81,7 @@ export function Sidebar() {
   ]
 
   return (
-    <aside className="w-60 shrink-0 flex flex-col bg-card border-r border-border h-full overflow-y-auto">
+    <aside className="w-60 shrink-0 hidden md:flex flex-col bg-card border-r border-border h-full overflow-y-auto">
       {/* Logo */}
       <div className="px-4 py-5 flex items-center gap-2 shrink-0">
         <Image src="/gitwave.svg" alt="Gitwave" width={24} height={24} priority />

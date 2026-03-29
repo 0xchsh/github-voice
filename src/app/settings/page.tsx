@@ -59,8 +59,11 @@ function VoiceCard({
   const gradient = getGradient(voice.name)
 
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={onSelect}
+      onKeyDown={(e) => e.key === "Enter" && onSelect()}
       className={cn(
         "relative text-left rounded-xl border p-4 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         selected
@@ -112,7 +115,7 @@ function VoiceCard({
           {previewing ? "Stop" : "Preview"}
         </button>
       )}
-    </button>
+    </div>
   )
 }
 

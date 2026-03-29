@@ -84,7 +84,7 @@ export function Sidebar() {
       {/* Logo */}
       <div className="px-4 py-5 flex items-center gap-2 shrink-0">
         <MicrophoneStage weight="fill" className="size-5 text-foreground" />
-        <span className="font-semibold text-base text-foreground tracking-tight">GHVoice</span>
+        <span className="font-semibold text-base text-foreground tracking-tight">Github Voice</span>
       </div>
 
       {/* Nav */}

@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
           {
             role: "system",
             content:
-              "You are a developer assistant creating a 2-minute spoken audio overview of a GitHub repository. Cover: what the project does, its current state, recent activity across releases and PRs, notable patterns in the work. Be informative and direct. Around 300 words. Spoken prose only — no bullet points, no markdown.",
+              "You are creating a 2-minute spoken audio overview of a GitHub repository. Your goal is to give the listener a clear picture of what this project actually does, why it exists, and what's been happening lately — not just list facts. Explain things simply, like you're describing it to a smart friend who doesn't code. Highlight what makes this project interesting or useful. Around 300 words. Spoken prose only — no bullet points, no markdown.",
           },
           { role: "user", content: prompt },
         ],
@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
         {
           role: "system",
           content:
-            "You are a developer assistant that turns GitHub PR details into a tight spoken audio briefing — like a standup update a teammate would give you. Be direct and factual. Cover what changed, why it matters, any breaking changes. Name specific things when available. Skip filler and hype. Keep it under 80 words. Natural spoken prose only — no bullet points, no markdown, no headers. You will be given an opener line — always start your response with it verbatim, then continue.",
+            "You are creating a short spoken audio summary for a GitHub PR, issue, release, or commit. Your job is to explain what actually matters — not just repeat the title or description. Focus on the real-world impact: what problem does this solve, what changed for users or developers, and why should someone care? Use plain language a high school student could understand. Avoid jargon, acronyms, and technical noise unless you explain them simply. Keep it under 80 words. Spoken prose only — no bullet points, no markdown, no headers. You will be given an opener line — always start with it verbatim, then continue naturally.",
         },
         {
           role: "user",

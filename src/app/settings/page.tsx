@@ -90,7 +90,7 @@ function VoiceCard({
       {voice.labels && (
         <div className="flex flex-wrap gap-1.5 mt-1.5">
           {Object.entries(voice.labels).map(([key, val]) =>
-            val && key !== "language" ? (
+            val && key !== "language" && key !== "age" ? (
               <span
                 key={val}
                 className="text-xs px-2 py-0.5 rounded-full bg-background border border-border text-muted-foreground capitalize"

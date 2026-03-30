@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 import { parseGitHubUrl } from "@/lib/github"
 
 const GITHUB_URL_RE = /^https?:\/\/(www\.)?github\.com\/[^/]+\/[^/]+/
-const HISTORY_KEY = "ghvoice_history"
+const HISTORY_KEY = "gitwave_history"
 const HISTORY_MAX = 6
 
 type HistoryItem = {

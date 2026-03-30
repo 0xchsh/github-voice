@@ -114,7 +114,7 @@ function VoiceCard({
         ].slice(0, 4) as [string, string][]
         return ordered.length > 0 ? (
           <div className="relative mt-1.5">
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-6 z-10 bg-gradient-to-l from-card to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-12 z-10 bg-gradient-to-l from-card via-card/80 to-transparent" />
             <div className="flex gap-1.5 overflow-x-auto scrollbar-none">
               {ordered.map(([key, val]) => (
                 <span

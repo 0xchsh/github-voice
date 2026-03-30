@@ -113,7 +113,7 @@ function VoiceCard({
           ...Object.entries(voice.labels).filter(([k]) => !priority.includes(k) && !skip.has(k)),
         ].slice(0, 4) as [string, string][]
         return ordered.length > 0 ? (
-          <div className="flex flex-wrap gap-1.5 mt-1.5">
+          <div className="flex flex-wrap gap-1.5 mt-1.5 max-h-[46px] overflow-hidden">
             {ordered.map(([key, val]) => (
               <span
                 key={key}

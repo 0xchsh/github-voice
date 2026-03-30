@@ -81,10 +81,28 @@ function VoiceCard({
       {/* Avatar */}
       <div className={cn("size-12 rounded-full mb-3 shrink-0 bg-gradient-to-br", gradient)} />
 
-      {/* Name */}
-      <p className="text-sm font-semibold text-foreground leading-tight mb-2">
-        {voice.name.split(" - ")[0]}
-      </p>
+      {/* Name + preview icon */}
+      <div className="flex items-center gap-1 mb-2 min-w-0">
+        <p className="text-sm font-semibold text-foreground leading-tight truncate">
+          {voice.name.split(" - ")[0]}
+        </p>
+        {voice.previewUrl && (
+          <button
+            onClick={togglePreview}
+            className={cn(
+              "shrink-0 transition-colors ml-0.5",
+              previewing ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+            )}
+            aria-label={previewing ? "Stop preview" : "Preview voice"}
+          >
+            {previewing ? (
+              <Pause weight="fill" className="size-3.5" />
+            ) : (
+              <SpeakerHigh className="size-3.5" />
+            )}
+          </button>
+        )}
+      </div>
 
       {/* Meta tags — gender, accent, then up to 2 extras */}
       {voice.labels && (() => {
@@ -108,23 +126,6 @@ function VoiceCard({
         ) : null
       })()}
 
-      {/* Preview button */}
-      {voice.previewUrl && (
-        <button
-          onClick={togglePreview}
-          className={cn(
-            "mt-3 flex items-center gap-1.5 text-xs font-medium transition-colors",
-            previewing ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-          )}
-        >
-          {previewing ? (
-            <Pause weight="fill" className="size-3.5" />
-          ) : (
-            <SpeakerHigh className="size-3.5" />
-          )}
-          {previewing ? "Stop" : "Preview"}
-        </button>
-      )}
     </div>
   )
 }

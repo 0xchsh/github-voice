@@ -107,11 +107,11 @@ function VoiceCard({
       {/* Meta tags — gender, accent, then up to 2 extras */}
       {voice.labels && (() => {
         const priority = ["gender", "accent"]
-        const skip = new Set(["language", "age"])
+        const skip = new Set(["language"])
         const ordered = [
           ...priority.flatMap((k) => (voice.labels![k] ? [[k, voice.labels![k]]] : [])),
           ...Object.entries(voice.labels).filter(([k]) => !priority.includes(k) && !skip.has(k)),
-        ].slice(0, 4) as [string, string][]
+        ] as [string, string][]
         return ordered.length > 0 ? (
           <div className="relative mt-1.5">
             <div className="pointer-events-none absolute inset-y-0 right-0 w-12 z-10 bg-gradient-to-l from-card via-card/80 to-transparent" />

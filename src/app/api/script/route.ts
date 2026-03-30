@@ -102,17 +102,17 @@ export async function POST(request: NextRequest) {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://ghvoice.app",
-        "X-Title": "GHVoice",
+        "HTTP-Referer": "https://gitwave.app",
+        "X-Title": "Gitwave",
       },
       body: JSON.stringify({
         model: "google/gemini-2.0-flash-001",
-        max_tokens: 800,
+        max_tokens: 700,
         messages: [
           {
             role: "system",
             content:
-              "You are creating a 2-minute spoken audio overview of a GitHub repository. Your goal is to give the listener a clear picture of what this project actually does, why it exists, and what's been happening lately — not just list facts. Explain things simply, like you're describing it to a smart friend who doesn't code. Highlight what makes this project interesting or useful. Around 300 words. Spoken prose only — no bullet points, no markdown.",
+              "You are creating a spoken audio overview of a GitHub repository. Your goal is to give the listener a clear picture of what this project actually does, why it exists, and what's been happening lately — not just list facts. Explain things simply, like you're describing it to a smart friend who doesn't code. Highlight what makes this project interesting or useful. Maximum 500 words. Spoken prose only — no bullet points, no markdown.",
           },
           { role: "user", content: prompt },
         ],
@@ -134,17 +134,17 @@ export async function POST(request: NextRequest) {
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://ghvoice.app",
-      "X-Title": "GHVoice",
+      "HTTP-Referer": "https://gitwave.app",
+      "X-Title": "Gitwave",
     },
     body: JSON.stringify({
       model: "google/gemini-2.0-flash-001",
-      max_tokens: 300,
+      max_tokens: 350,
       messages: [
         {
           role: "system",
           content:
-            "You are creating a short spoken audio summary for a GitHub PR, issue, release, or commit. Your job is to explain what actually matters — not just repeat the title or description. Focus on the real-world impact: what problem does this solve, what changed for users or developers, and why should someone care? Use plain language a high school student could understand. Avoid jargon, acronyms, and technical noise unless you explain them simply. Keep it under 80 words. Spoken prose only — no bullet points, no markdown, no headers. You will be given an opener line — always start with it verbatim, then continue naturally.",
+            "You are creating a short spoken audio summary for a GitHub PR, issue, release, or commit. Your job is to explain what actually matters — not just repeat the title or description. Focus on the real-world impact: what problem does this solve, what changed for users or developers, and why should someone care? Use plain language a high school student could understand. Avoid jargon, acronyms, and technical noise unless you explain them simply. Maximum 250 words. Spoken prose only — no bullet points, no markdown, no headers. You will be given an opener line — always start with it verbatim, then continue naturally.",
         },
         {
           role: "user",

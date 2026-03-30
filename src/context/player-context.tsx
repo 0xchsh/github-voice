@@ -177,6 +177,16 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
           prev ? { ...prev, audioUrl: blobUrl, status: "ready" } : prev
         )
 
+        // Save to play history
+        const HISTORY_KEY = "gitwave_play_history"
+        try {
+          const existing = JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]")
+          const entry = { repoFullName: repoData.fullName, tagName: release.tagName, generatedAt: new Date().toISOString() }
+          const filtered = existing.filter((e: typeof entry) => !(e.repoFullName === entry.repoFullName && e.tagName === entry.tagName))
+          localStorage.setItem(HISTORY_KEY, JSON.stringify([entry, ...filtered].slice(0, 50)))
+          window.dispatchEvent(new Event("gitwave_play_history_change"))
+        } catch {}
+
         // Auto-play, preserving current playback rate
         if (audioRef.current) {
           audioRef.current.src = blobUrl

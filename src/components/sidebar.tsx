@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
-import { House, MagnifyingGlass, Plus, GearSix } from "@phosphor-icons/react"
+import { House, MagnifyingGlass, GearSix } from "@phosphor-icons/react"
 import { cn } from "@/lib/utils"
 
 type LibraryItem = {
@@ -13,18 +13,18 @@ type LibraryItem = {
   stars: number
 }
 
-type HistoryItem = {
-  fullName: string
-  description: string | null
-  visitedAt: string
+type PlayHistoryItem = {
+  repoFullName: string
+  tagName: string
+  generatedAt: string
 }
 
-const HISTORY_KEY = "gitwave_history"
+const PLAY_HISTORY_KEY = "gitwave_play_history"
 
-function getHistory(): HistoryItem[] {
+function getPlayHistory(): PlayHistoryItem[] {
   if (typeof window === "undefined") return []
   try {
-    return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]")
+    return JSON.parse(localStorage.getItem(PLAY_HISTORY_KEY) ?? "[]")
   } catch {
     return []
   }
@@ -69,27 +69,18 @@ export function isInLibrary(fullName: string): boolean {
 
 export function Sidebar() {
   const pathname = usePathname()
-  const [library, setLibrary] = useState<LibraryItem[]>([])
-  const [history, setHistory] = useState<HistoryItem[]>([])
+  const [playHistory, setPlayHistory] = useState<PlayHistoryItem[]>([])
 
   useEffect(() => {
-    setLibrary(getLibrary())
-    setHistory(getHistory())
+    setPlayHistory(getPlayHistory())
   }, [])
 
-  // Refresh when pathname changes
   useEffect(() => {
-    setLibrary(getLibrary())
-    setHistory(getHistory())
-  }, [pathname])
-
-  // Listen for same-tab and cross-tab library changes
-  useEffect(() => {
-    function refresh() { setLibrary(getLibrary()) }
-    window.addEventListener("gitwave_library_change", refresh)
+    function refresh() { setPlayHistory(getPlayHistory()) }
+    window.addEventListener("gitwave_play_history_change", refresh)
     window.addEventListener("storage", refresh)
     return () => {
-      window.removeEventListener("gitwave_library_change", refresh)
+      window.removeEventListener("gitwave_play_history_change", refresh)
       window.removeEventListener("storage", refresh)
     }
   }, [])
@@ -133,68 +124,23 @@ export function Sidebar() {
       {/* Divider */}
       <div className="mx-4 mt-4 mb-3 border-t border-border shrink-0" />
 
-      {/* Recently Played */}
-      {history.length > 0 && (
-        <div className="px-2 mb-4 shrink-0">
-          <div className="px-3 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            Recently Played
-          </div>
-          <div className="space-y-0.5">
-            {history.slice(0, 5).map((item) => {
-              const [owner, repo] = item.fullName.split("/")
-              const href = `/r/${owner}/${repo}`
-              return (
-                <Link
-                  key={item.fullName}
-                  href={href}
-                  className={cn(
-                    "flex flex-col gap-0.5 px-3 py-2 rounded-lg transition-colors",
-                    pathname === href
-                      ? "bg-muted text-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  )}
-                >
-                  <span className="text-sm font-medium text-foreground truncate">{item.fullName}</span>
-                  {item.description && (
-                    <span className="text-xs text-muted-foreground truncate">{item.description}</span>
-                  )}
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Divider before library */}
-      {history.length > 0 && <div className="mx-4 mb-3 border-t border-border shrink-0" />}
-
-      {/* Your Library */}
+      {/* History */}
       <div className="px-2 flex-1 min-h-0 flex flex-col">
-        <div className="flex items-center justify-between px-3 mb-2 shrink-0">
-          <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            Your Library
-          </div>
-          <Link
-            href="/"
-            className="size-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-            title="Add repo"
-          >
-            <Plus className="size-3.5" />
-          </Link>
+        <div className="px-3 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider shrink-0">
+          History
         </div>
-
         <div className="flex-1 overflow-y-auto space-y-0.5 pb-4">
-          {library.length === 0 ? (
+          {playHistory.length === 0 ? (
             <p className="px-3 py-2 text-xs text-muted-foreground">
-              Follow repos to see them here.
+              Generated audio will appear here.
             </p>
           ) : (
-            library.map((item) => {
-              const [owner, repo] = item.fullName.split("/")
+            playHistory.map((item) => {
+              const [owner, repo] = item.repoFullName.split("/")
               const href = `/r/${owner}/${repo}`
               return (
                 <Link
-                  key={item.fullName}
+                  key={`${item.repoFullName}-${item.tagName}`}
                   href={href}
                   className={cn(
                     "flex flex-col gap-0.5 px-3 py-2 rounded-lg transition-colors",
@@ -203,14 +149,8 @@ export function Sidebar() {
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   )}
                 >
-                  <span className="text-sm font-medium text-foreground truncate">
-                    {item.fullName}
-                  </span>
-                  {item.description && (
-                    <span className="text-xs text-muted-foreground truncate">
-                      {item.description}
-                    </span>
-                  )}
+                  <span className="text-sm font-medium text-foreground truncate">{repo}</span>
+                  <span className="text-xs text-muted-foreground truncate">{item.tagName}</span>
                 </Link>
               )
             })

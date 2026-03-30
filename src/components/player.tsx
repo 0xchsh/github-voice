@@ -113,9 +113,9 @@ export function Player() {
       </div>
 
       {/* Desktop layout */}
-      <div className="hidden md:flex items-center px-4 gap-4 h-24">
+      <div className="hidden md:grid md:grid-cols-3 items-center px-4 gap-4 h-24">
         {/* Left: Now playing info */}
-        <div className="flex-1 min-w-0 flex items-center gap-3 basis-0">
+        <div className="flex items-center gap-3 min-w-0">
           {episode ? (
             <>
               {thumbnail}
@@ -143,7 +143,7 @@ export function Player() {
         </div>
 
         {/* Center: Controls + scrubber */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-1 min-w-0">
+        <div className="flex flex-col items-center justify-center gap-1 min-w-0">
           <div className="flex items-center gap-3">{playButton}</div>
           <div className="w-full max-w-sm flex items-center gap-2">
             <span className="text-xs text-muted-foreground tabular-nums w-8 text-right shrink-0">
@@ -175,7 +175,7 @@ export function Player() {
         </div>
 
         {/* Right: Speed + download */}
-        <div className="flex-1 basis-0 flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end gap-2">
           {speedButtons}
           {hasAudio && episode?.audioUrl && (
             <a

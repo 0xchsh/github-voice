@@ -82,7 +82,7 @@ function VoiceCard({
       <div className={cn("size-12 rounded-full mb-3 shrink-0 bg-gradient-to-br", gradient)} />
 
       {/* Name + preview icon */}
-      <div className="flex items-center gap-1 mb-2 min-w-0">
+      <div className="flex items-center gap-1 mb-3 min-w-0">
         <p className="text-sm font-semibold text-foreground leading-tight truncate">
           {voice.name.split(" - ")[0]}
         </p>

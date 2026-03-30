@@ -2,13 +2,14 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { House, MagnifyingGlass, GearSix } from "@phosphor-icons/react"
+import { House, MagnifyingGlass, Microphone, ClockCounterClockwise } from "@phosphor-icons/react"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
   { href: "/", label: "Home", icon: House },
   { href: "/search", label: "Explore", icon: MagnifyingGlass },
-  { href: "/settings", label: "Voices", icon: GearSix },
+  { href: "/settings", label: "Voices", icon: Microphone },
+  { href: "/history", label: "History", icon: ClockCounterClockwise },
 ]
 
 export function MobileNav() {

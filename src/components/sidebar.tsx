@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
-import { House, MagnifyingGlass, GearSix } from "@phosphor-icons/react"
+import { House, MagnifyingGlass, Microphone } from "@phosphor-icons/react"
 import { cn } from "@/lib/utils"
 
 type LibraryItem = {
@@ -88,7 +88,7 @@ export function Sidebar() {
   const navLinks = [
     { href: "/", label: "Home", icon: House },
     { href: "/search", label: "Explore", icon: MagnifyingGlass },
-    { href: "/settings", label: "Voices", icon: GearSix },
+    { href: "/settings", label: "Voices", icon: Microphone },
   ]
 
   return (

@@ -113,15 +113,18 @@ function VoiceCard({
           ...Object.entries(voice.labels).filter(([k]) => !priority.includes(k) && !skip.has(k)),
         ].slice(0, 4) as [string, string][]
         return ordered.length > 0 ? (
-          <div className="flex flex-wrap gap-1.5 mt-1.5 max-h-[46px] overflow-hidden">
-            {ordered.map(([key, val]) => (
-              <span
-                key={key}
-                className="text-xs px-2 py-0.5 rounded-full bg-background border border-border text-muted-foreground capitalize"
-              >
-                {val.replace(/_/g, " ")}
-              </span>
-            ))}
+          <div className="relative mt-1.5">
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-6 z-10 bg-gradient-to-l from-card to-transparent" />
+            <div className="flex gap-1.5 overflow-x-auto scrollbar-none">
+              {ordered.map(([key, val]) => (
+                <span
+                  key={key}
+                  className="text-xs px-2 py-0.5 rounded-full bg-background border border-border text-muted-foreground capitalize shrink-0"
+                >
+                  {val.replace(/_/g, " ")}
+                </span>
+              ))}
+            </div>
           </div>
         ) : null
       })()}

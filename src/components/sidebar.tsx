@@ -13,6 +13,23 @@ type LibraryItem = {
   stars: number
 }
 
+type HistoryItem = {
+  fullName: string
+  description: string | null
+  visitedAt: string
+}
+
+const HISTORY_KEY = "gitwave_history"
+
+function getHistory(): HistoryItem[] {
+  if (typeof window === "undefined") return []
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]")
+  } catch {
+    return []
+  }
+}
+
 const LIBRARY_KEY = "gitwave_library"
 
 export function getLibrary(): LibraryItem[] {
@@ -53,14 +70,17 @@ export function isInLibrary(fullName: string): boolean {
 export function Sidebar() {
   const pathname = usePathname()
   const [library, setLibrary] = useState<LibraryItem[]>([])
+  const [history, setHistory] = useState<HistoryItem[]>([])
 
   useEffect(() => {
     setLibrary(getLibrary())
+    setHistory(getHistory())
   }, [])
 
-  // Refresh library when pathname changes (e.g. user saved a new repo)
+  // Refresh when pathname changes
   useEffect(() => {
     setLibrary(getLibrary())
+    setHistory(getHistory())
   }, [pathname])
 
   // Listen for same-tab and cross-tab library changes
@@ -112,6 +132,41 @@ export function Sidebar() {
 
       {/* Divider */}
       <div className="mx-4 mt-4 mb-3 border-t border-border shrink-0" />
+
+      {/* Recently Played */}
+      {history.length > 0 && (
+        <div className="px-2 mb-4 shrink-0">
+          <div className="px-3 mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+            Recently Played
+          </div>
+          <div className="space-y-0.5">
+            {history.slice(0, 5).map((item) => {
+              const [owner, repo] = item.fullName.split("/")
+              const href = `/r/${owner}/${repo}`
+              return (
+                <Link
+                  key={item.fullName}
+                  href={href}
+                  className={cn(
+                    "flex flex-col gap-0.5 px-3 py-2 rounded-lg transition-colors",
+                    pathname === href
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  )}
+                >
+                  <span className="text-sm font-medium text-foreground truncate">{item.fullName}</span>
+                  {item.description && (
+                    <span className="text-xs text-muted-foreground truncate">{item.description}</span>
+                  )}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Divider before library */}
+      {history.length > 0 && <div className="mx-4 mb-3 border-t border-border shrink-0" />}
 
       {/* Your Library */}
       <div className="px-2 flex-1 min-h-0 flex flex-col">
